@@ -16,4 +16,21 @@ def translate(message):
     else:
         bot.send_message(user_id, text='wrong command' )
 
+
+@bot.message_handler(content_types=['text'])
+def main_menu(message):
+    user_id = message.from_user.id
+    text = message.text
+    if text == 'Menu':
+        all_products = db.get_pr_id_name()
+        bot.send_message(user_id, 'Chose the product', reply_markup=bt.products_in(all_products))
+    elif text == 'Cart':
+        bot.send_message(user_id, 'Your cart')
+    elif text == 'Comment':
+        bot.send_message(user_id, 'Send your comment')
+
+
+bot.infinity_polling()
+
+
 bot.infinity_polling()
